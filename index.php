@@ -11,14 +11,14 @@
 <body>
 <form action="insert.php" method="post">
     <p>
-        <label for="date_entry">Date</label>
+        <label for="date_entry">Date</label><br>
         <?php
             $today = date('Y-m-d');
             echo "<input type='date' name='date' id='date_entry' value='{$today}'>"
         ?>        
     </p>
     <p>
-        <label for="category_entry">Category</label>
+        <label for="category_entry">Category</label><br>
         <select name="category" id="category_entry">
             <?php
                 $dbm = new SqlDataManager();
@@ -28,18 +28,18 @@
         </select>
     </p>    
     <p>
-        <label for="store_name_dropdown">Store Name</label>
+        <label for="store_name_dropdown">Store Name</label><br>
         <select name="storeNameDropdown" id="store_name_dropdown">
             <?php
                 $opt = $dbm->sqlQuery("SELECT * FROM stores ORDER BY names ASC");
                 echo "<option value=''></option>\n";
                 printArrayAsFormOptions($opt);
             ?>
-        </select>
+        </select><br>
         <input type="text" name="storeNameTextbox" id="store_name_textbox">
     </p>
     <p>
-        <label for="description_entry">Description</label>
+        <label for="description_entry">Description</label><br>
         <input type="text" name="description" id="description_entry">
     </p>
     <p>
@@ -52,11 +52,11 @@
         </fieldset>
     </p>
     <p>
-        <label for="split_entry">Split Transaction</label>
+        <label for="split_entry">Split Transaction</label><br>
         <input type="checkbox" name="split" id="split_entry">
     </p>
     <p>
-        <label for="amount_entry">Amount $</label>
+        <label for="amount_entry">Amount <br>$</label>
         <input type="number" name="amount" id="amount_entry">
     </p>
     <input type="submit" value="Submit">

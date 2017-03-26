@@ -6,12 +6,12 @@
     <script>
     $(document).ready(function() {
         $("#addTx").click(function() {
-            $(".hidden:first").addClass("working visible");
-            $(".working").removeClass("hidden working");
+            $("fieldset.hidden:first").addClass("working visible");
+            $("fieldset.working").removeClass("hidden working");
         })
         $("#removeTx").click(function() {
-            $(".visible:last").addClass("working hidden");
-            $(".working").removeClass("visible working");
+            $("fieldset.visible:last").addClass("working hidden");
+            $("fieldset.working").removeClass("visible working");
         })
     })
     </script>

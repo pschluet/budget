@@ -4,6 +4,8 @@
     <?php 
         include "utils.php"; 
         date_default_timezone_set("America/Chicago");
+        $dbm = new SqlDataManager();
+        $MAX_NUM_SPLIT_TRANSACTIONS = 4;
     ?>
     <meta charset="UTF-8">
     <title>Transaction Form</title>
@@ -18,15 +20,9 @@
         ?>        
     </p>
     <p>
-        <label for="category_entry">Category</label><br>
-        <select name="category" id="category_entry">
-            <?php
-                $dbm = new SqlDataManager();
-                $opt = $dbm->sqlQuery("SELECT * FROM categories ORDER BY names ASC");
-                printArrayAsFormOptions($opt);
-            ?>
-        </select>
-    </p>    
+        <label for="deposit_entry">Deposit</label>
+        <input type="checkbox" name="deposit" id="deposit_entry">
+    </p>
     <p>
         <label for="store_name_dropdown">Store Name</label><br>
         <select name="storeNameDropdown" id="store_name_dropdown">
@@ -38,27 +34,30 @@
         </select><br>
         <input type="text" name="storeNameTextbox" id="store_name_textbox">
     </p>
-    <p>
-        <label for="description_entry">Description</label><br>
-        <input type="text" name="description" id="description_entry">
-    </p>
-    <p>
+    <?php
+    for ($ii = 0; $ii < $MAX_NUM_SPLIT_TRANSACTIONS; $ii++) {
+        $label = $ii + 1;
+        echo "<p>
         <fieldset>
-            <legend>Type</legend>
-            <label for="withdrawal_entry">Withdrawal</label>
-            <input type="radio" name="transType" id="withdrawal" value="withdrawal" checked="withdrawal"><br>
-            <label for="female">Deposit</label>
-            <input type="radio" name="transType" id="deposit" value="deposit"><br>
+            <legend>Transaction {$label}</legend>
+            <label for='category_entry{$ii}'>Category</label><br>
+            <select name='category{$ii}' id='category_entry{$ii}''>";
+                $opt = $dbm->sqlQuery("SELECT * FROM categories ORDER BY names ASC");
+                printArrayAsFormOptions($opt);
+            echo "
+            </select></br>
+
+            <label for='description_entry{$ii}'>Description</label><br>
+            <input type='text' name='description{$ii}' id='description_entry{$ii}'></br>
+
+            <label for='amount_entry{$ii}'>Amount<br>$</label>
+            <input type='number' name='amount{$ii}' id='amount_entry{$ii}'>
         </fieldset>
-    </p>
-    <p>
-        <label for="split_entry">Split Transaction</label><br>
-        <input type="checkbox" name="split" id="split_entry">
-    </p>
-    <p>
-        <label for="amount_entry">Amount <br>$</label>
-        <input type="number" name="amount" id="amount_entry">
-    </p>
+        </p>
+        ";
+    }
+    ?>
+    
     <input type="submit" value="Submit">
 </form>
 </body>

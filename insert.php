@@ -13,6 +13,8 @@ include "utils.php";
 
 $dbm = new SqlDataManager();
 
+var_dump(array_keys($_REQUEST));
+
 $dataToInsert = array(
     "date" => $_REQUEST["date"],
     "category" => $_REQUEST["category"],

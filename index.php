@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">    
+
+    <!-- Include meta tag to ensure proper rendering and touch zooming -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Include jQuery Mobile stylesheets -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+    <!-- Include the jQuery library -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Include the jQuery Mobile library -->
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
     <script>
     $(document).ready(function() {
         $("#addTx").click(function() {
@@ -15,6 +27,7 @@
         })
     })
     </script>
+
     <?php 
         include "utils.php"; 
         date_default_timezone_set("America/Chicago");
@@ -25,60 +38,64 @@
     <title>Transaction Form</title>
 </head>
 <body>
-<form action="insert.php" method="post">
-    <p>
-        <label for="date_entry">Date</label><br>
-        <?php
-            $today = date('Y-m-d');
-            echo "<input type='date' name='date' id='date_entry' value='{$today}'>"
-        ?>        
-    </p>
-    <p>
-        <label for="deposit_entry">Deposit</label>
-        <input type="checkbox" name="deposit" id="deposit_entry">
-    </p>
-    <p>
-        <label for="store_name_dropdown">Store Name</label><br>
-        <select name="storeNameDropdown" id="store_name_dropdown">
+<div data-role="page">
+    <div data-role="main" class="ui-content">
+        <form action="insert.php" method="post">
+            <p>
+                <label for="date_entry">Date</label>
+                <?php
+                    $today = date('Y-m-d');
+                    echo "<input type='date' name='date' id='date_entry' value='{$today}'>"
+                ?>        
+            </p>
+            <p>
+                <label for="deposit_entry">Deposit</label>
+                <input type="checkbox" name="deposit" id="deposit_entry">
+            </p>
+            <p>
+                <label for="store_name_dropdown">Store Name</label>
+                <select name="storeNameDropdown" id="store_name_dropdown">
+                    <?php
+                        $opt = $dbm->sqlQuery("SELECT * FROM stores ORDER BY names ASC");
+                        echo "<option value=''></option>\n";
+                        printArrayAsFormOptions($opt);
+                    ?>
+                </select>
+                <input type="text" name="storeNameTextbox" id="store_name_textbox">
+            </p>
             <?php
-                $opt = $dbm->sqlQuery("SELECT * FROM stores ORDER BY names ASC");
-                echo "<option value=''></option>\n";
-                printArrayAsFormOptions($opt);
-            ?>
-        </select><br>
-        <input type="text" name="storeNameTextbox" id="store_name_textbox">
-    </p>
-    <?php
-    for ($ii = 0; $ii < $MAX_NUM_SPLIT_TRANSACTIONS; $ii++) {
-        $label = $ii + 1;
-        if ($ii > 0) {
-            $class = "hidden";
-        } else {
-            $class = "visible";
-        }
-        echo "
-        <fieldset class='{$class}'>
-            <legend>Transaction {$label}</legend>
-            <label for='category_entry{$ii}'>Category</label><br>
-            <select name='category{$ii}' id='category_entry{$ii}''>";
-                $opt = $dbm->sqlQuery("SELECT * FROM categories ORDER BY names ASC");
-                printArrayAsFormOptions($opt);
-            echo "
-            </select></br>
+            for ($ii = 0; $ii < $MAX_NUM_SPLIT_TRANSACTIONS; $ii++) {
+                $label = $ii + 1;
+                if ($ii > 0) {
+                    $class = "hidden";
+                } else {
+                    $class = "visible";
+                }
+                echo "                
+                <fieldset class='{$class}' data-role='collapsible' data-collapsed='false'>
+                    <legend>Transaction {$label}</legend>                    
+                    <label for='category_entry{$ii}'>Category</label>
+                    <select name='category{$ii}' id='category_entry{$ii}''>";
+                        $opt = $dbm->sqlQuery("SELECT * FROM categories ORDER BY names ASC");
+                        printArrayAsFormOptions($opt);
+                    echo "
+                    </select>
 
-            <label for='description_entry{$ii}'>Description</label><br>
-            <input type='text' name='description{$ii}' id='description_entry{$ii}'></br>
+                    <label for='description_entry{$ii}'>Description</label>
+                    <input type='text' name='description{$ii}' id='description_entry{$ii}'>
 
-            <label for='amount_entry{$ii}'>Amount<br>$</label>
-            <input type='number' name='amount{$ii}' id='amount_entry{$ii}'>
-        </fieldset>
-        ";
-    }
-    ?>    
-    <button type="button" id="addTx">Add Split Transaction</button>
-    <button type="button" id="removeTx">Remove Split Transaction</button>
-    </br>
-    <input type="submit" value="Submit">
-</form>
+                    <label for='amount_entry{$ii}'>Amount ($)</label>
+                    <input type='number' name='amount{$ii}' id='amount_entry{$ii}'>                    
+                </fieldset>
+                ";
+            }
+            ?>    
+            <button type="button" id="addTx">Add Split Transaction</button>
+            <button type="button" id="removeTx">Remove Split Transaction</button>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>    
 </body>
 </html>

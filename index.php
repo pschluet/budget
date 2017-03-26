@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $("#addTx").click(function() {
+            $(".hidden:first").addClass("working visible");
+            $(".working").removeClass("hidden working");
+        })
+        $("#removeTx").click(function() {
+            $(".visible:last").addClass("working hidden");
+            $(".working").removeClass("visible working");
+        })
+    })
+    </script>
     <?php 
         include "utils.php"; 
         date_default_timezone_set("America/Chicago");
         $dbm = new SqlDataManager();
-        $MAX_NUM_SPLIT_TRANSACTIONS = 4;
+        $MAX_NUM_SPLIT_TRANSACTIONS = 10;
     ?>
     <meta charset="UTF-8">
     <title>Transaction Form</title>
@@ -37,8 +51,13 @@
     <?php
     for ($ii = 0; $ii < $MAX_NUM_SPLIT_TRANSACTIONS; $ii++) {
         $label = $ii + 1;
-        echo "<p>
-        <fieldset>
+        if ($ii > 0) {
+            $class = "hidden";
+        } else {
+            $class = "visible";
+        }
+        echo "
+        <fieldset class='{$class}'>
             <legend>Transaction {$label}</legend>
             <label for='category_entry{$ii}'>Category</label><br>
             <select name='category{$ii}' id='category_entry{$ii}''>";
@@ -53,11 +72,12 @@
             <label for='amount_entry{$ii}'>Amount<br>$</label>
             <input type='number' name='amount{$ii}' id='amount_entry{$ii}'>
         </fieldset>
-        </p>
         ";
     }
-    ?>
-    
+    ?>    
+    <button type="button" id="addTx">Add Split Transaction</button>
+    <button type="button" id="removeTx">Remove Split Transaction</button>
+    </br>
     <input type="submit" value="Submit">
 </form>
 </body>

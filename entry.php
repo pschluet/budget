@@ -85,7 +85,7 @@
                     <input type='text' name='description{$ii}' id='description_entry{$ii}'>
 
                     <label for='amount_entry{$ii}'>Amount ($)</label>
-                    <input type='number' name='amount{$ii}' id='amount_entry{$ii}'>                    
+                    <input type='number' step=0.01 name='amount{$ii}' id='amount_entry{$ii}'>                    
                 </fieldset>
                 ";
             }

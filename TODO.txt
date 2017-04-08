@@ -1,6 +1,7 @@
 - Store text box update database
 - Add logout button
 - Update page that shows successful submission
+- Undo last transaction entry
 - Perform form validation
 	- Amount required
 	- One of store name fields populated

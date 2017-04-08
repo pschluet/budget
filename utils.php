@@ -29,6 +29,18 @@ class SqlDataManager {
 	    return $results_array;
 	}
 
+	public function doesEntryExist($tableName, $columnName, $value) {
+		// tableName: string name of table to check
+		// columnName: string name of column within the table to check
+		// value: value to check for in that column
+		// Returns true or false
+
+		$sql = "SELECT $columnName FROM $tableName WHERE $columnName = '$value'";
+		$match = $this->sqlQuery($sql);
+
+		return !empty($match);
+	}
+
 	public function insertIntoTable($tableName, $data) {
 		// tableName: string name of table to insert data into
 		// data: associative array with column name as key and raw user input value as value
@@ -98,7 +110,8 @@ class TransactionFormProcessor {
 
 	public function __construct($postArr, $transId) {		
 		$this->transId = $transId;
-		$this->storeName = $postArr["storeNameDropdown"];
+		// Use textbox if textbox not empty. Otherwise, use dropdown.
+		$this->storeName = empty($postArr["storeNameTextbox"]) ? $postArr["storeNameDropdown"] : $postArr["storeNameTextbox"];
 		$this->isDeposit = array_key_exists("deposit", $postArr);
 		$this->date = $postArr["date"];
 

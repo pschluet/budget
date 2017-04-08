@@ -28,6 +28,11 @@ foreach ($transactionsToInsert as $singleTransaction) {
         echo "<h1>Fail!</h1>";
     }    
 }
+
+// Insert store name into DB if it's not already there
+if (!($dbm->doesEntryExist("stores", "names", $dbm->secureFormInputText($transactionsToInsert[0]["storeName"])))) {
+	$dbm->insertIntoTable("stores", array("names" => $transactionsToInsert[0]["storeName"]));
+}
 ?>
 <div><a href="entry.php">Enter Another Transaction</a></div>
 </body>

@@ -94,7 +94,7 @@ class SqlDataManager {
 
 function printArrayAsFormOptions($inArr) {
 	foreach ($inArr as $opt) {
-		echo "<option value='{$opt["names"]}''>{$opt["names"]}</option>\n";
+		printf('<option value="%s">%s</option>', $opt["names"], $opt["names"]);
 	}
 }
 

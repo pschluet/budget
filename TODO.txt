@@ -1,4 +1,8 @@
 - Store text box update database
 - Add logout button
 - Update page that shows successful submission
+- Perform form validation
+	- Amount required
+	- One of store name fields populated
+	- Date required
 - Reset form when link clicked to go back to entry

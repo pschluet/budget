@@ -3,6 +3,7 @@
 //	- Add logout button
 //  - Update page that shows successful submission
 //  - Reset form when link clicked to go back to entry
+
 	include_once("utils.php");	
 
 	if (isset($_POST['username']) && isset($_POST['password'])) {

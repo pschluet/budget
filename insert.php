@@ -34,6 +34,6 @@ if (!($dbm->doesEntryExist("stores", "names", $dbm->secureFormInputText($transac
 	$dbm->insertIntoTable("stores", array("names" => $transactionsToInsert[0]["storeName"]));
 }
 ?>
-<div><a href="entry.php">Enter Another Transaction</a></div>
+<div><a href="index.php">Enter Another Transaction</a></div>
 </body>
 </html>

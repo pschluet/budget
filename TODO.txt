@@ -6,5 +6,4 @@
 	- One of store name fields populated
 	- Date required
 - Reset form when link clicked to go back to entry
-- Redirect index.php to entry.php if already logged in
 - Display top ten store names at top of dropdown

@@ -14,10 +14,10 @@
 		$credentialMatch = $dm->sqlQuery($sql);
 
 		if (empty($credentialMatch)) {
-			header("Location: index.php");
+			header("Location: login.php");
 		}
 	} else {
-		header("Location: index.php");
+		header("Location: login.php");
 	}
 
 ?>

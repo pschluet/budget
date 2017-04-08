@@ -6,6 +6,14 @@ class SqlDataManager {
 	private $dBname = "paulschl_money";
 	private $dBconn;
 
+	public function secureFormInputText($inTxt) {
+		$this->connect();
+		$secureTxt = $this->dBconn->real_escape_string($inTxt);
+		$this->disconnect();
+
+		return $secureTxt;
+	}
+
 	public function sqlQuery($queryStr) {
 		// Returns result in an associative array		
 		$this->connect();

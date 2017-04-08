@@ -1,7 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css">    
+<?php
+	include_once("utils.php");
+	session_start();
+
+	$dm = new SqlDataManager();
+
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		// Username and password sent from form
+
+		// Secure form inputs
+		$formUsername = $dm->secureFormInputText($_POST["username"]);
+		$formPassword = $dm->secureFormInputText($_POST["password"]);
+
+		// Check credentials with database
+		$sql = "SELECT username FROM logins WHERE username = '$formUsername' AND password = '$formPassword'";
+		$credentialMatch = $dm->sqlQuery($sql);
+		
+		if (empty($credentialMatch)) {
+			$error = "Invalid Username or Password";
+		} else {
+			$_SESSION["loginUser"] = $formUsername;
+			header("Location: entry.php");
+		}
+	}
+?>
+<html>
+<head>	
+	<link rel="stylesheet" type="text/css" href="style.css">    
 
     <!-- Include meta tag to ensure proper rendering and touch zooming -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,87 +39,19 @@
     <!-- Include the jQuery Mobile library -->
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-    <script>
-    $(document).ready(function() {
-        $("#addTx").click(function() {
-            $("fieldset.hidden:first").addClass("working visible");
-            $("fieldset.working").removeClass("hidden working");
-        })
-        $("#removeTx").click(function() {
-            $("fieldset.visible:last").addClass("working hidden");
-            $("fieldset.working").removeClass("visible working");
-        })
-    })
-    </script>
-
-    <?php 
-        include "utils.php"; 
-        date_default_timezone_set("America/Chicago");
-        $dbm = new SqlDataManager();
-        $MAX_NUM_SPLIT_TRANSACTIONS = 10;
-    ?>
-    <meta charset="UTF-8">
-    <title>Transaction Form</title>
+    <title>Login Page</title>
 </head>
 <body>
 <div data-role="page">
     <div data-role="main" class="ui-content">
-        <form action="insert.php" method="post">
-            <p>
-                <label for="date_entry">Date</label>
-                <?php
-                    $today = date('Y-m-d');
-                    echo "<input type='date' name='date' id='date_entry' value='{$today}'>"
-                ?>        
-            </p>
-            <p>
-                <label for="deposit_entry">Deposit</label>
-                <input type="checkbox" name="deposit" id="deposit_entry">
-            </p>
-            <p>
-                <label for="store_name_dropdown">Store Name</label>
-                <select name="storeNameDropdown" id="store_name_dropdown">
-                    <?php
-                        $opt = $dbm->sqlQuery("SELECT * FROM stores ORDER BY names ASC");
-                        echo "<option value=''></option>\n";
-                        printArrayAsFormOptions($opt);
-                    ?>
-                </select>
-                <input type="text" name="storeNameTextbox" id="store_name_textbox">
-            </p>
-            <?php
-            for ($ii = 0; $ii < $MAX_NUM_SPLIT_TRANSACTIONS; $ii++) {
-                $label = $ii + 1;
-                if ($ii > 0) {
-                    $class = "hidden";
-                } else {
-                    $class = "visible";
-                }
-                echo "                
-                <fieldset class='{$class}' data-role='collapsible' data-collapsed='false'>
-                    <legend>Transaction {$label}</legend>                    
-                    <label for='category_entry{$ii}'>Category</label>
-                    <select name='category{$ii}' id='category_entry{$ii}''>";
-                        $opt = $dbm->sqlQuery("SELECT * FROM categories ORDER BY names ASC");
-                        printArrayAsFormOptions($opt);
-                    echo "
-                    </select>
-
-                    <label for='description_entry{$ii}'>Description</label>
-                    <input type='text' name='description{$ii}' id='description_entry{$ii}'>
-
-                    <label for='amount_entry{$ii}'>Amount ($)</label>
-                    <input type='number' name='amount{$ii}' id='amount_entry{$ii}'>                    
-                </fieldset>
-                ";
-            }
-            ?>    
-            <button type="button" id="addTx">Add Split Transaction</button>
-            <button type="button" id="removeTx">Remove Split Transaction</button>
-            
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-</div>    
+		<form action="" method="post">
+			<label>User Name</label><input type = "text" name = "username"/>
+	        <label>Password</label><input type = "password" name = "password"/>
+	        <input type = "submit" value = "Submit"/>
+		</form>
+		<div><?php echo $error;?></div>
+	</div>
+</div>
 </body>
+
 </html>

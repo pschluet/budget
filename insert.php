@@ -9,6 +9,7 @@
 <?php
 
 date_default_timezone_set("America/Chicago");
+include "session.php";
 include "utils.php";
 
 $dbm = new SqlDataManager();

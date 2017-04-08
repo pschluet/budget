@@ -60,7 +60,7 @@
             <input type="checkbox" name="rememberMe" id="reme_entry">
 	        <input type = "submit" value = "Submit"/>
 		</form>
-		<div><?php var_dump($_COOKIE);?></div>
+		<div><?php echo $error;?></div>
 	</div>
 </div>
 </body>

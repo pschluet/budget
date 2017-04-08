@@ -1,4 +1,5 @@
 <!-- Handle Form Submission -->
+<?php include_once("ensureLoggedIn.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +10,8 @@
 <?php
 
 date_default_timezone_set("America/Chicago");
-include "session.php";
-include "utils.php";
+include_once("utils.php");
+include_once("ensureLoggedIn.php"); 
 
 $dbm = new SqlDataManager();
 $newTransactionId = (int)$dbm->sqlQuery("SELECT MAX(transactionId) FROM transactions")[0]["MAX(transactionId)"] + 1;
@@ -27,7 +28,7 @@ foreach ($transactionsToInsert as $singleTransaction) {
         echo "<h1>Fail!</h1>";
     }    
 }
-
 ?>
+<div><a href="entry.php">Enter Another Transaction</a></div>
 </body>
 </html>

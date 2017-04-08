@@ -1,15 +1,15 @@
 <?php
-	include_once("utils.php");
-	session_start();
+	include_once("utils.php");	
 
-	$dm = new SqlDataManager();
-
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	if (isset($_POST['username']) && isset($_POST['password'])) {
 		// Username and password sent from form
+
+		$dm = new SqlDataManager();
 
 		// Secure form inputs
 		$formUsername = $dm->secureFormInputText($_POST["username"]);
 		$formPassword = $dm->secureFormInputText($_POST["password"]);
+		$formPassword = md5($formPassword);
 
 		// Check credentials with database
 		$sql = "SELECT username FROM logins WHERE username = '$formUsername' AND password = '$formPassword'";
@@ -18,10 +18,19 @@
 		if (empty($credentialMatch)) {
 			$error = "Invalid Username or Password";
 		} else {
-			$_SESSION["loginUser"] = $formUsername;
+			$domain = ($_SERVER['HTTP_HOST'] != "localhost") ? $_SERVER['HTTP_HOST'] : false;
+			if (isset($_POST["rememberMe"])) {
+				// Set cookie to last a long time
+				$COOKIE_EXP_TIME_DAYS = 365;
+				setcookie("username", $_POST["username"], time() + $COOKIE_EXP_TIME_DAYS * 60 * 60 * 24, '/', $domain);
+				setcookie("password", md5($_POST["password"]), time() + $COOKIE_EXP_TIME_DAYS * 60 * 60 * 24, '/', $domain);
+			} else {
+				setcookie('username', $_POST['username'], false, '/', $domain);
+            	setcookie('password', md5($_POST['password']), false, '/', $domain);
+			}
 			header("Location: entry.php");
 		}
-	}
+	}	
 ?>
 <html>
 <head>	
@@ -47,9 +56,11 @@
 		<form action="" method="post">
 			<label>User Name</label><input type = "text" name = "username"/>
 	        <label>Password</label><input type = "password" name = "password"/>
+	        <label for="reme_entry">Remember Me</label>
+            <input type="checkbox" name="rememberMe" id="reme_entry">
 	        <input type = "submit" value = "Submit"/>
 		</form>
-		<div><?php echo $error;?></div>
+		<div><?php var_dump($_COOKIE);?></div>
 	</div>
 </div>
 </body>

@@ -1,3 +1,10 @@
+<?php 
+        include_once("ensureLoggedIn.php");
+        include_once("utils.php");         
+        date_default_timezone_set("America/Chicago");
+        $dbm = new SqlDataManager();
+        $MAX_NUM_SPLIT_TRANSACTIONS = 10;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,14 +34,6 @@
         })
     })
     </script>
-
-    <?php 
-        include "utils.php"; 
-        include "session.php";
-        date_default_timezone_set("America/Chicago");
-        $dbm = new SqlDataManager();
-        $MAX_NUM_SPLIT_TRANSACTIONS = 10;
-    ?>
     <meta charset="UTF-8">
     <title>Transaction Form</title>
 </head>

@@ -1,0 +1,4 @@
+- Store text box update database
+- Add logout button
+- Update page that shows successful submission
+- Reset form when link clicked to go back to entry

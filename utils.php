@@ -101,7 +101,7 @@ class DataPresenter {
 	}
 
 	public static function printArrayAsTable($arr, $tableId) {
-		echo "<table data-role='table' class='ui-responsive table-stroke' id='$tableId' data-mode='reflow'>";
+		echo "<table data-role='table' class='ui-responsive table-stroke table-stripe' id='$tableId' data-mode='reflow'>";
 		echo '<thead>';
 		echo '<tr>';
 		foreach($arr[0] as $key=>$row) {
@@ -120,6 +120,18 @@ class DataPresenter {
 		}
 		echo '</tbody>';
 		echo "</table>";
+	}
+
+	public static function changeTableArrayKeys($arr, $oldKeys, $newKeys) {
+		$jj = 0;
+		foreach($arr as $key => $row) {
+			foreach($oldKeys as $ok) {
+				$arr[$key][$newKeys[$jj]] = $arr[$key][$oldKeys[$jj]];
+				unset($arr[$key][$oldKeys[$jj]]);
+				$jj++;
+			}
+		}
+		return $arr;
 	}
 }
 

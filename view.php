@@ -35,10 +35,31 @@
     <?php
     // Get latest transactions
     $latestId = (int)$dbm->sqlQuery("SELECT MAX(transactionId) FROM transactions")[0]["MAX(transactionId)"];
-    $data = $dbm->sqlQuery("SELECT * FROM transactions WHERE transactionId > $latestId - $NUM_LATEST_TRANSACTIONS ORDER BY transactionId DESC");
+    $sql = "SELECT 
+                transactionId, 
+                date, 
+                category, 
+                storeName, 
+                description, 
+                isDeposit, 
+                amount 
+            FROM transactions
+            WHERE transactionId > $latestId - $NUM_LATEST_TRANSACTIONS
+            ORDER BY transactionId DESC";
+    $data = $dbm->sqlQuery($sql);
     
     // Display the data in a table
-    DataPresenter::printArrayAsTable($data, "transactions");
+    $oldKeys = array_keys($data[0]);
+    $newKeys = array(
+        "Transaction ID",
+        "Date",
+        "Category",
+        "Store",
+        "Description",
+        "Deposit",
+        "Amount");
+    $tableData = DataPresenter::changeTableArrayKeys($data, $oldKeys, $newKeys);
+    DataPresenter::printArrayAsTable($tableData, "transactions");
     ?>
 </div>
 </body>

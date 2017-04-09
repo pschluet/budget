@@ -35,7 +35,7 @@
     <?php
     // Get latest transactions
     $latestId = (int)$dbm->sqlQuery("SELECT MAX(transactionId) FROM transactions")[0]["MAX(transactionId)"];
-    $data = $dbm->sqlQuery("SELECT * FROM transactions WHERE transactionId > $latestId - $NUM_LATEST_TRANSACTIONS");
+    $data = $dbm->sqlQuery("SELECT * FROM transactions WHERE transactionId > $latestId - $NUM_LATEST_TRANSACTIONS ORDER BY transactionId DESC");
     
     // Display the data in a table
     DataPresenter::printArrayAsTable($data, "transactions");

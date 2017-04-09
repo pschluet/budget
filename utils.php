@@ -101,7 +101,7 @@ class DataPresenter {
 	}
 
 	public static function printArrayAsTable($arr, $tableId) {
-		echo '<table data-role="table" class="ui-responsive table-stroke" id="$tableId" data-mode="reflow">';
+		echo "<table data-role='table' class='ui-responsive table-stroke' id='$tableId' data-mode='reflow'>";
 		echo '<thead>';
 		echo '<tr>';
 		foreach($arr[0] as $key=>$row) {

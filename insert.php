@@ -30,8 +30,9 @@ foreach ($transactionsToInsert as $singleTransaction) {
 }
 
 // Insert store name into DB if it's not already there
-if (!($dbm->doesEntryExist("stores", "names", $dbm->secureFormInputText($transactionsToInsert[0]["storeName"])))) {
-	$dbm->insertIntoTable("stores", array("names" => $transactionsToInsert[0]["storeName"]));
+$storeEntered = $dbm->secureFormInputText($transactionsToInsert[0]["storeName"]);
+if (!empty($storeEntered) and !($dbm->doesEntryExist("stores", "names", $storeEntered))) {
+	$dbm->insertIntoTable("stores", array("names" => $storeEntered));
 }
 ?>
 <div><a href="index.php">Enter Another Transaction</a></div>

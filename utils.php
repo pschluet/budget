@@ -92,9 +92,34 @@ class SqlDataManager {
 	}
 }
 
-function printArrayAsFormOptions($inArr) {
-	foreach ($inArr as $opt) {
-		printf('<option value="%s">%s</option>', $opt["names"], $opt["names"]);
+class DataPresenter {
+
+	public static function printArrayAsFormOptions($inArr) {
+		foreach ($inArr as $opt) {
+			printf('<option value="%s">%s</option>', $opt["names"], $opt["names"]);
+		}
+	}
+
+	public static function printArrayAsTable($arr, $tableId) {
+		echo '<table data-role="table" class="ui-responsive table-stroke" id="$tableId" data-mode="reflow">';
+		echo '<thead>';
+		echo '<tr>';
+		foreach($arr[0] as $key=>$row) {
+			echo "<th>" . $key . "</th>";
+		}
+		echo '</tr>';
+		echo '</thead>';
+
+		echo '<tbody>';
+		foreach($arr as $key=>$row) {
+		    echo "<tr>";
+		    foreach($row as $key2=>$row2){
+		        echo "<td>" . $row2 . "</td>";
+		    }
+		    echo "</tr>";
+		}
+		echo '</tbody>';
+		echo "</table>";
 	}
 }
 

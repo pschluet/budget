@@ -39,6 +39,12 @@
 </head>
 <body>
 <div data-role="page">
+    <div data-role="navbar">
+        <ul>
+            <li><a href="index.php" class="ui-btn-active ui-state-persist">Enter</a></li>
+            <li><a href="view.php" >View</a></li>
+        </ul>
+    </div>
     <div data-role="main" class="ui-content">
         <form action="insert.php" method="post">
             <p>
@@ -58,7 +64,7 @@
                     <?php
                         $opt = $dbm->sqlQuery("SELECT * FROM stores ORDER BY names ASC");
                         echo "<option value=''></option>\n";
-                        printArrayAsFormOptions($opt);
+                        DataPresenter::printArrayAsFormOptions($opt);
                     ?>
                 </select>
                 <input type="text" name="storeNameTextbox" id="store_name_textbox">
@@ -77,7 +83,7 @@
                     <label for='category_entry{$ii}'>Category</label>
                     <select name='category{$ii}' id='category_entry{$ii}''>";
                         $opt = $dbm->sqlQuery("SELECT * FROM categories ORDER BY names ASC");
-                        printArrayAsFormOptions($opt);
+                        DataPresenter::printArrayAsFormOptions($opt);
                     echo "
                     </select>
 

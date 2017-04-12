@@ -16,11 +16,21 @@ include_once("ensureLoggedIn.php");
 $dbm = new SqlDataManager();
 $newTransactionId = (int)$dbm->sqlQuery("SELECT MAX(transactionId) FROM transactions")[0]["MAX(transactionId)"] + 1;
 
+// Insert store name into DB if it's not already there
+$storeEntered = $dbm->secureFormInputText($_REQUEST["storeNameTextbox"]);
+if (!empty($storeEntered) and !($dbm->doesEntryExist("stores", "names", $storeEntered))) {
+	$dbm->insertIntoTable("stores", array("names" => $storeEntered));
+	$query = $dbm->sqlQuery("SELECT id FROM stores WHERE names='$storeEntered'");
+	$storeId = $query[0]["id"];
+} else {
+	$storeId = $_REQUEST["storeNameDropdown"];
+}
+
 // Process the form data
-$fp = new TransactionFormProcessor($_REQUEST, $newTransactionId);
+$fp = new TransactionFormProcessor($_REQUEST, $newTransactionId, $storeId);
 $transactionsToInsert = $fp->getDataToInsertToDb();
 
-// Insert the data into the database
+// Insert the transaction data into the database
 foreach ($transactionsToInsert as $singleTransaction) {
     if ($dbm->insertIntoTable("transactions", $singleTransaction)) {
         echo "<h1>Success!</h1>";
@@ -29,11 +39,7 @@ foreach ($transactionsToInsert as $singleTransaction) {
     }    
 }
 
-// Insert store name into DB if it's not already there
-$storeEntered = $dbm->secureFormInputText($transactionsToInsert[0]["storeName"]);
-if (!empty($storeEntered) and !($dbm->doesEntryExist("stores", "names", $storeEntered))) {
-	$dbm->insertIntoTable("stores", array("names" => $storeEntered));
-}
+
 ?>
 <div><a href="index.php">Enter Another Transaction</a></div>
 </body>

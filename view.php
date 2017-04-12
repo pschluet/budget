@@ -3,7 +3,7 @@
         include_once("utils.php");         
         date_default_timezone_set("America/Chicago");
         $dbm = new SqlDataManager();
-        $NUM_LATEST_TRANSACTIONS = 10;
+        $NUM_LATEST_TRANSACTIONS = 20;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,30 +36,28 @@
     // Get latest transactions
     $latestId = (int)$dbm->sqlQuery("SELECT MAX(transactionId) FROM transactions")[0]["MAX(transactionId)"];
     $sql = "SELECT 
-                transactionId, 
-                date, 
-                category, 
-                storeName, 
-                description, 
-                isDeposit, 
-                amount 
-            FROM transactions
-            WHERE transactionId > $latestId - $NUM_LATEST_TRANSACTIONS
-            ORDER BY transactionId DESC";
+                t.date,
+                c.names as catNames,
+                s.names as storeNames,
+                t.description,
+                t.amount
+            FROM transactions AS t
+            INNER JOIN 
+                categories AS c ON t.categoryId=c.id
+            INNER JOIN 
+                stores AS s ON t.storeId=s.id
+            WHERE t.transactionId > $latestId - $NUM_LATEST_TRANSACTIONS
+            ORDER BY t.date DESC, t.transactionId DESC";
     $data = $dbm->sqlQuery($sql);
     
     // Display the data in a table
-    $oldKeys = array_keys($data[0]);
-    $newKeys = array(
-        "Transaction ID",
+    $hdr = array(
         "Date",
         "Category",
         "Store",
         "Description",
-        "Deposit",
         "Amount");
-    $tableData = DataPresenter::changeTableArrayKeys($data, $oldKeys, $newKeys);
-    DataPresenter::printArrayAsTable($tableData, "transactions");
+    DataPresenter::printArrayAsTable($data, "transactions", $hdr);
     ?>
 </div>
 </body>

@@ -62,7 +62,7 @@
                 <label for="store_name_dropdown">Store Name</label>
                 <select name="storeNameDropdown" id="store_name_dropdown">
                     <?php
-                        $opt = $dbm->sqlQuery("SELECT * FROM stores ORDER BY names ASC");
+                        $opt = $dbm->sqlQuery("SELECT id, names FROM stores ORDER BY names ASC");
                         echo "<option value=''></option>\n";
                         DataPresenter::printArrayAsFormOptions($opt);
                     ?>
@@ -82,7 +82,7 @@
                     <legend>Transaction {$label}</legend>                    
                     <label for='category_entry{$ii}'>Category</label>
                     <select name='category{$ii}' id='category_entry{$ii}''>";
-                        $opt = $dbm->sqlQuery("SELECT * FROM categories ORDER BY names ASC");
+                        $opt = $dbm->sqlQuery("SELECT id, names FROM categories ORDER BY names ASC");
                         DataPresenter::printArrayAsFormOptions($opt);
                     echo "
                     </select>

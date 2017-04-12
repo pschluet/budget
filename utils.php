@@ -96,16 +96,16 @@ class DataPresenter {
 
 	public static function printArrayAsFormOptions($inArr) {
 		foreach ($inArr as $opt) {
-			printf('<option value="%s">%s</option>', $opt["names"], $opt["names"]);
+			printf('<option value="%s">%s</option>', $opt["id"], $opt["names"]);
 		}
 	}
 
-	public static function printArrayAsTable($arr, $tableId) {
+	public static function printArrayAsTable($arr, $tableId, $hdrs) {
 		echo "<table data-role='table' class='ui-responsive table-stroke table-stripe' id='$tableId' data-mode='reflow'>";
 		echo '<thead>';
 		echo '<tr>';
-		foreach($arr[0] as $key=>$row) {
-			echo "<th>" . $key . "</th>";
+		foreach($hdrs as $hdr) {
+			echo "<th>" . $hdr . "</th>";
 		}
 		echo '</tr>';
 		echo '</thead>';
@@ -121,18 +121,6 @@ class DataPresenter {
 		echo '</tbody>';
 		echo "</table>";
 	}
-
-	public static function changeTableArrayKeys($arr, $oldKeys, $newKeys) {
-		$jj = 0;
-		foreach($arr as $key => $row) {
-			foreach($oldKeys as $ok) {
-				$arr[$key][$newKeys[$jj]] = $arr[$key][$oldKeys[$jj]];
-				unset($arr[$key][$oldKeys[$jj]]);
-				$jj++;
-			}
-		}
-		return $arr;
-	}
 }
 
 class TransactionFormProcessor {
@@ -145,10 +133,9 @@ class TransactionFormProcessor {
 	private $amts;
 	private $date;
 
-	public function __construct($postArr, $transId) {		
+	public function __construct($postArr, $transId, $storeId) {		
 		$this->transId = $transId;
-		// Use textbox if textbox not empty. Otherwise, use dropdown.
-		$this->storeName = empty($postArr["storeNameTextbox"]) ? $postArr["storeNameDropdown"] : $postArr["storeNameTextbox"];
+		$this->storeName = $storeId;
 		$this->isDeposit = array_key_exists("deposit", $postArr);
 		$this->date = $postArr["date"];
 
@@ -170,9 +157,9 @@ class TransactionFormProcessor {
 			$outArr[] = array(
 				"transactionId" => (string)$this->transId,
 				"date" => $this->date,
-				"storeName" => $this->storeName,
+				"storeId" => $this->storeName,
 				"isDeposit" => $this->isDeposit,
-				"category" => $this->categories[$ii],
+				"categoryId" => $this->categories[$ii],
 				"description" => $this->descriptions[$ii],
 				"amount" => $this->amts[$ii]
 			);

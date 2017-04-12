@@ -36,6 +36,7 @@
     // Get latest transactions
     $latestId = (int)$dbm->sqlQuery("SELECT MAX(transactionId) FROM transactions")[0]["MAX(transactionId)"];
     $sql = "SELECT 
+                t.transactionId,
                 t.date,
                 c.names as catNames,
                 s.names as storeNames,
@@ -49,9 +50,10 @@
             WHERE t.transactionId > $latestId - $NUM_LATEST_TRANSACTIONS
             ORDER BY t.date DESC, t.transactionId DESC";
     $data = $dbm->sqlQuery($sql);
-    
+
     // Display the data in a table
     $hdr = array(
+        "Transaction ID",
         "Date",
         "Category",
         "Store",

@@ -100,7 +100,7 @@ class DataPresenter {
 		}
 	}
 
-	public static function printArrayAsTable($arr, $tableId, $hdrs) {
+	public static function printArrayAsTable($arr, $tableId, $hdrs, $rowIds) {
 		echo "<table data-role='table' class='ui-responsive table-stroke table-stripe' id='$tableId' data-mode='reflow'>";
 		echo '<thead>';
 		echo '<tr>';
@@ -111,8 +111,11 @@ class DataPresenter {
 		echo '</thead>';
 
 		echo '<tbody>';
+		$ii = 0;
 		foreach($arr as $key=>$row) {
 		    echo "<tr>";
+		    printf("<tr id=%s>", $rowIds[$ii]);
+		    $ii++;
 		    foreach($row as $key2=>$row2){
 		        echo "<td>" . $row2 . "</td>";
 		    }

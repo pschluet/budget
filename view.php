@@ -35,7 +35,7 @@
     <?php
     // Get latest transactions
     $latestId = (int)$dbm->sqlQuery("SELECT MAX(transactionId) FROM transactions")[0]["MAX(transactionId)"];
-    $sql = "SELECT 
+    $sql = "SELECT
                 t.transactionId,
                 t.date,
                 c.names as catNames,
@@ -51,6 +51,17 @@
             ORDER BY t.date DESC, t.transactionId DESC";
     $data = $dbm->sqlQuery($sql);
 
+    // Get unique ids of the transactions
+    $ids = $dbm->sqlQuery(
+        "SELECT id 
+         FROM transactions 
+         WHERE transactionId > $latestId - $NUM_LATEST_TRANSACTIONS
+         ORDER BY date DESC, transactionId DESC"
+    );
+    foreach ($ids as $row) {
+        $rowIds[] = $row["id"];
+    }
+
     // Display the data in a table
     $hdr = array(
         "Transaction ID",
@@ -59,7 +70,7 @@
         "Store",
         "Description",
         "Amount");
-    DataPresenter::printArrayAsTable($data, "transactions", $hdr);
+    DataPresenter::printArrayAsTable($data, "transactions", $hdr, $rowIds);
     ?>
 </div>
 </body>

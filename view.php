@@ -25,6 +25,29 @@
     <title>Data View</title>
 </head>
 <body>
+
+<!-- Handle Deleting Rows -->
+<script>
+    $(document).ready(function() {
+        $(".delete").click(function() {
+            var delId = $(this).parent().attr("id");
+            var rowElement = $(this).parent();
+
+            $.ajax({
+                type:"POST",
+                url:"deleteTransactionRow.php",
+                data:{deleteId: delId},
+                success:function(data) {
+                    if (data == "success") {
+                        rowElement.fadeOut(500).remove();
+                    }
+                }
+            })
+        });
+    });
+</script>
+
+<!-- Build table -->
 <div data-role="page">
     <div data-role="navbar">
         <ul>
@@ -70,7 +93,7 @@
         "Store",
         "Description",
         "Amount");
-    DataPresenter::printArrayAsTable($data, "transactions", $hdr, $rowIds);
+    DataPresenter::printArrayAsTable($data, "transactions", $hdr, $rowIds, true);
     ?>
 </div>
 </body>

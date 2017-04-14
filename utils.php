@@ -110,12 +110,15 @@ class DataPresenter {
 		}
 	}
 
-	public static function printArrayAsTable($arr, $tableId, $hdrs, $rowIds) {
+	public static function printArrayAsTable($arr, $tableId, $hdrs, $rowIds, $deleteCol) {
 		echo "<table data-role='table' class='ui-responsive table-stroke table-stripe' id='$tableId' data-mode='reflow'>";
 		echo '<thead>';
 		echo '<tr>';
 		foreach($hdrs as $hdr) {
 			echo "<th>" . $hdr . "</th>";
+		}
+		if ($deleteCol) {
+			echo "<th></th>";
 		}
 		echo '</tr>';
 		echo '</thead>';
@@ -128,6 +131,9 @@ class DataPresenter {
 		    foreach($row as $key2=>$row2){
 		        echo "<td>" . $row2 . "</td>";
 		    }
+		    if ($deleteCol) {
+				echo "<td class='delete'>X</td>";
+			}	
 		    echo "</tr>";
 		}
 		echo '</tbody>';

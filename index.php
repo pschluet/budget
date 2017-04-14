@@ -42,7 +42,7 @@
     <div data-role="navbar">
         <ul>
             <li><a href="index.php" class="ui-btn-active ui-state-persist">Enter</a></li>
-            <li><a href="view.php" >View</a></li>
+            <li><a href="view.php" rel="external">View</a></li>
         </ul>
     </div>
     <div data-role="main" class="ui-content">

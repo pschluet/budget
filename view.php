@@ -51,7 +51,7 @@
 <div data-role="page">
     <div data-role="navbar">
         <ul>
-            <li><a href="index.php">Enter</a></li>
+            <li><a href="index.php" rel="external">Enter</a></li>
             <li><a href="view.php" class="ui-btn-active ui-state-persist">View</a></li>
         </ul>
     </div>

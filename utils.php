@@ -29,6 +29,16 @@ class SqlDataManager {
 	    return $results_array;
 	}
 
+	public function sql($sqlStr) {
+		// Returns the result directly
+		$this->connect();
+
+	    $result = $this->dBconn->query($sqlStr);
+
+	    $this->disconnect();
+	    return $result;
+	}
+
 	public function doesEntryExist($tableName, $columnName, $value) {
 		// tableName: string name of table to check
 		// columnName: string name of column within the table to check

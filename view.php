@@ -29,7 +29,7 @@
 <!-- Handle Deleting Rows -->
 <script>
     $(document).ready(function() {
-        $(".delete").click(function() {
+        $(".deleteX").click(function() {
             var delId = $(this).parent().parent().attr("id");
             var rowElement = $(this).parent().parent();
 

@@ -30,8 +30,8 @@
 <script>
     $(document).ready(function() {
         $(".delete").click(function() {
-            var delId = $(this).parent().attr("id");
-            var rowElement = $(this).parent();
+            var delId = $(this).parent().parent().attr("id");
+            var rowElement = $(this).parent().parent();
 
             $.ajax({
                 type:"POST",

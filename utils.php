@@ -132,7 +132,7 @@ class DataPresenter {
 		        echo "<td>" . $row2 . "</td>";
 		    }
 		    if ($deleteCol) {
-				echo "<td class='delete'>X</td>";
+				echo "<td><span class='delete'>X</span></td>";
 			}	
 		    echo "</tr>";
 		}

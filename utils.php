@@ -132,7 +132,7 @@ class DataPresenter {
 		        echo "<td>" . $row2 . "</td>";
 		    }
 		    if ($deleteCol) {
-				echo "<td><img class='deleteX' src='deleteX.png''></td>";
+		    	echo "<td><a href='#' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-mini deleteX'></a></td>";
 			}	
 		    echo "</tr>";
 		}

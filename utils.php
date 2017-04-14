@@ -72,8 +72,6 @@ class SqlDataManager {
 		$sql .= " (".implode(", ", array_keys($secureData)).") VALUES ";
 		$sql .= " (".implode(", ", array_values($secureData)).")";
 
-		var_dump($sql);
-
 		if ($this->dBconn->query($sql) == true) {
 			$success = true;
 		} else {

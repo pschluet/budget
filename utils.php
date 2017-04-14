@@ -113,7 +113,6 @@ class DataPresenter {
 		echo '<tbody>';
 		$ii = 0;
 		foreach($arr as $key=>$row) {
-		    echo "<tr>";
 		    printf("<tr id=%s>", $rowIds[$ii]);
 		    $ii++;
 		    foreach($row as $key2=>$row2){

@@ -31,14 +31,29 @@
         $("#removeTx").click(function() {
             $("fieldset.visible:last").addClass("working hidden");
             $("fieldset.working").removeClass("visible working");
-        })
-    })
+        })        
+    });
+    $(document).on("pagebeforeshow","#entry", function(event) { // When entering this page
+            var prevPage = event.handleObj.handler.arguments["1"].prevPage;
+            if (prevPage[0] != null && prevPage.attr("data-url").indexOf("insert.php") > -1) {
+                // If last page was insert.php, reset form
+                $("#tForm")[0].reset();
+
+                // Hide all but first split transaction elements
+                $("fieldset").each(function(ii, elem) {
+                    if (ii > 0) {
+                        $(elem).removeClass("visible");
+                        $(elem).addClass("hidden");
+                    }
+                });
+            }            
+    });
     </script>
     <meta charset="UTF-8">
     <title>Transaction Form</title>
 </head>
 <body>
-<div data-role="page">
+<div data-role="page" id="entry">
     <div data-role="navbar">
         <ul>
             <li><a href="index.php" class="ui-btn-active ui-state-persist">Enter</a></li>
@@ -46,7 +61,7 @@
         </ul>
     </div>
     <div data-role="main" class="ui-content">
-        <form action="insert.php" method="post">
+        <form action="insert.php" method="post" id="tForm">
             <p>
                 <label for="date_entry">Date</label>
                 <?php

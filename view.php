@@ -98,7 +98,7 @@
 
     <!-- Handle exporting data to CSV -->
     <form data-ajax="false" action="exportCsv.php" method="post" id="exportCsvForm">
-        <input type="submit" name="export_csv" value="Export to CSV">
+        <input type="submit" name="export_csv" value="Download All Transactions">
     </form>
 </div>
 </body>

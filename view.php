@@ -95,6 +95,11 @@
         "Amount");
     DataPresenter::printArrayAsTable($data, "transactions", $hdr, $rowIds, true);
     ?>
+
+    <!-- Handle exporting data to CSV -->
+    <form data-ajax="false" action="exportCsv.php" method="post" id="exportCsvForm">
+        <input type="submit" name="export_csv" value="Export to CSV">
+    </form>
 </div>
 </body>
 </html>

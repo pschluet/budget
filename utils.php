@@ -197,4 +197,21 @@ class TransactionFormProcessor {
 		return $vals;
 	}
 }
+
+function exportCsv($sqlQuery, $dm) {
+	// dm: of type SqlDataManager
+	header('Content-Type: text/csv; charset=utf-8');
+	header('Content-Disposition: attachment; filename=transactions.csv');
+	$output = fopen("php://output", "w");
+	$data = $dm->sqlQuery($sqlQuery);
+
+	// Put headers into CSV
+	fputcsv($output, array_keys($data[0]));
+
+	// Put data into CSV
+	foreach($data as $row) {
+		fputcsv($output, $row);
+	}
+	fclose($output);
+}
 ?>

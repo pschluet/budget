@@ -15,7 +15,8 @@ if(isset($_POST["export_csv"])) {
 			JOIN categories as c
 				ON t.categoryId=c.id
 			JOIN stores as s
-				ON t.storeId=s.id";
+				ON t.storeId=s.id
+			ORDER BY t.date DESC, t.transactionId DESC";
     exportCsv($sql, $dbm);
 }
 ?>

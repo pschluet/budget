@@ -1,9 +1,12 @@
+- Add note capabilities
+- Add budget category plotting
+- Add budget category tracking
+- Bug fix: adding stores with apostrophes doesn't work as intended
+- Add auto total calculator for split transactions
+- Add autocomplete textbox for stores (instead of dropdown)
 - Add logout button
-- Update page that shows successful submission
-- Undo last transaction entry
 - Perform form validation
 	- Amount required
 	- One of store name fields populated
 	- Date required
-- Reset form when link clicked to go back to entry
 - Display top ten store names at top of dropdown

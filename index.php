@@ -57,7 +57,8 @@
             
             // Set final visible amount to the difference between total and entered
             var finalAmt = splitTotal - totalEntered;
-            $("fieldset.visible:last input[name*='amount']").val(finalAmt.toString());
+            finalAmtRounded = Math.round(finalAmt * 100) / 100; // Round to 2 decimal places
+            $("fieldset.visible:last input[name*='amount']").val(finalAmtRounded.toString());
         })        
     });
     $(document).on("pagebeforeshow","#entry", function(event) { // When entering this page

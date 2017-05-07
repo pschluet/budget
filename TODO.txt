@@ -2,7 +2,6 @@
 - Add budget category plotting
 - Add budget category tracking
 - Bug fix: adding stores with apostrophes doesn't work as intended
-- Add auto total calculator for split transactions
 - Add autocomplete textbox for stores (instead of dropdown)
 - Add logout button
 - Perform form validation

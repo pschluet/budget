@@ -24,13 +24,40 @@
 
     <script>
     $(document).ready(function() {
+        // Hide split transactions buttons on page load
+        $("#removeTx").hide();
+        $("#calcSplit").hide();
+
         $("#addTx").click(function() {
             $("fieldset.hidden:first").addClass("working visible");
             $("fieldset.working").removeClass("hidden working");
+
+            // Make split buttons visible
+            $("#removeTx").show();
+            $("#calcSplit").show();
         })
         $("#removeTx").click(function() {
             $("fieldset.visible:last").addClass("working hidden");
             $("fieldset.working").removeClass("visible working");
+
+            if ($("fieldset.visible").length < 2) {
+                // Hide split transactions buttons when not relevant
+                $("#removeTx").hide();
+                $("#calcSplit").hide();
+            }
+        })   
+        $("#calcSplit").click(function() {
+            var splitTotal = Number(prompt("Input total transaction amount ($)"));
+
+            // Get totals from all but last visible input
+            var totalEntered = 0;
+            $("fieldset.visible:not(:last) input[name*='amount']").each(function() {
+                totalEntered += isNaN(this.valueAsNumber) ? 0 : this.valueAsNumber;
+            });
+            
+            // Set final visible amount to the difference between total and entered
+            var finalAmt = splitTotal - totalEntered;
+            $("fieldset.visible:last input[name*='amount']").val(finalAmt.toString());
         })        
     });
     $(document).on("pagebeforeshow","#entry", function(event) { // When entering this page
@@ -113,6 +140,7 @@
             ?>    
             <button type="button" id="addTx">Add Split Transaction</button>
             <button type="button" id="removeTx">Remove Split Transaction</button>
+            <button type="button" id="calcSplit">Calculate Final Split Amount</button>
             
             <input type="submit" value="Submit">
         </form>

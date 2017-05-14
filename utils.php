@@ -104,6 +104,12 @@ class DataPresenter {
 
 	public static function printArrayAsFormOptions($inArr) {
 		foreach ($inArr as $opt) {
+			printf('<option value="%s">%s</option>', $opt["id"], $opt["names"]);
+		}
+	}
+
+	public static function printArrayAsListItems($inArr) {
+		foreach ($inArr as $opt) {
 			printf('<li value="%s" class="storeItem"><a href="#">%s</a></li>', $opt["id"], $opt["names"]);
 		}
 	}

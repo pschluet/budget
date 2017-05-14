@@ -107,7 +107,7 @@
                 <ul data-role="listview" id="store_name_dropdown" data-filter="true" data-filter-reveal="true" data-input="#store_name_textbox" data-inset="true">
                     <?php
                         $opt = $dbm->sqlQuery("SELECT id, names FROM stores ORDER BY names ASC");
-                        DataPresenter::printArrayAsFormOptions($opt);
+                        DataPresenter::printArrayAsListItems($opt);
                     ?>  
                 </ul>
             </p>

@@ -102,15 +102,14 @@
                 <input type="checkbox" name="deposit" id="deposit_entry">
             </p>
             <p>
-                <label for="store_name_dropdown">Store Name</label>
-                <select name="storeNameDropdown" id="store_name_dropdown">
+                <label for="store_name_textbox">Store Name</label>
+                <input id="store_name_textbox" name="storeNameTextbox">
+                <ul data-role="listview" id="store_name_dropdown" data-filter="true" data-filter-reveal="true" data-input="#store_name_textbox" data-inset="true">
                     <?php
                         $opt = $dbm->sqlQuery("SELECT id, names FROM stores ORDER BY names ASC");
-                        echo "<option value=''></option>\n";
                         DataPresenter::printArrayAsFormOptions($opt);
-                    ?>
-                </select>
-                <input type="text" name="storeNameTextbox" id="store_name_textbox">
+                    ?>  
+                </ul>
             </p>
             <?php
             for ($ii = 0; $ii < $MAX_NUM_SPLIT_TRANSACTIONS; $ii++) {

@@ -108,6 +108,12 @@ class DataPresenter {
 		}
 	}
 
+	public static function printArrayAsListItems($inArr) {
+		foreach ($inArr as $opt) {
+			printf('<li value="%s" class="storeItem"><a href="#">%s</a></li>', $opt["id"], $opt["names"]);
+		}
+	}
+
 	public static function printArrayAsTable($arr, $tableId, $hdrs, $rowIds, $deleteCol) {
 		echo "<table data-role='table' class='ui-responsive table-stroke table-stripe' id='$tableId' data-mode='reflow'>";
 		echo '<thead>';

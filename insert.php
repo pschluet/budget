@@ -36,17 +36,20 @@ include_once("ensureLoggedIn.php");
         $newTransactionId = (int)$dbm->sqlQuery("SELECT MAX(transactionId) FROM transactions")[0]["MAX(transactionId)"] + 1;
 
         // Insert store name into DB if it's not already there
-        $storeEntered = $dbm->secureFormInputText($_REQUEST["storeNameTextbox"]);
+        $storeRaw = $_REQUEST["storeNameTextbox"];
+        $storeEntered = $dbm->secureFormInputText($storeRaw);
         if (!empty($storeEntered) and !($dbm->doesEntryExist("stores", "names", $storeEntered))) {
             if ($dbm->insertIntoTable("stores", array("names" => $storeEntered))) {
-                echo "<p>Successfully entered store: $storeEntered</p>";
+                echo "<p>Successfully entered store: $storeRaw</p>";
             } else {
-                echo "<p>Failed to enter store: $storeEntered</p>";
+                echo "<p>Failed to enter store: $storeRaw</p>";
             }
         }
 
         // Get store ID
-        $query = $dbm->sqlQuery("SELECT id FROM stores WHERE names='$storeEntered'");
+        $storeEnteredQuery = $dbm->secureFormInputText($storeEntered);
+        $sql = "SELECT id FROM stores WHERE names='$storeEnteredQuery'";
+        $query = $dbm->sqlQuery($sql);
         $storeId = $query[0]["id"];
 
         // Process the form data

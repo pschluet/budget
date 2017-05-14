@@ -63,7 +63,7 @@
         $(".storeItem").click(function() {
             var storeTextbox = $("#store_name_textbox")[0];
             // Set textbox text
-            storeTextbox.value = this.children[0].innerHTML;
+            storeTextbox.value = this.children[0].innerText;
 
             // Hide all the autocomplete list items
             $(".storeItem").each(function() {

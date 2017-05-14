@@ -59,7 +59,20 @@
             var finalAmt = splitTotal - totalEntered;
             finalAmtRounded = Math.round(finalAmt * 100) / 100; // Round to 2 decimal places
             $("fieldset.visible:last input[name*='amount']").val(finalAmtRounded.toString());
-        })        
+        }) 
+        $(".storeItem").click(function() {
+            var storeTextbox = $("#store_name_textbox")[0];
+            // Set textbox text
+            storeTextbox.value = this.children[0].innerHTML;
+
+            // Hide all the autocomplete list items
+            $(".storeItem").each(function() {
+                $(this).removeClass("ui-first-child");
+                $(this).addClass("ui-screen-hidden");
+            })
+
+            var bp = 1;
+        })       
     });
     $(document).on("pagebeforeshow","#entry", function(event) { // When entering this page
             var prevPage = event.handleObj.handler.arguments["1"].prevPage;

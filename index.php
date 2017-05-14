@@ -70,8 +70,6 @@
                 $(this).removeClass("ui-first-child");
                 $(this).addClass("ui-screen-hidden");
             })
-
-            var bp = 1;
         })       
     });
     $(document).on("pagebeforeshow","#entry", function(event) { // When entering this page

@@ -43,11 +43,11 @@ include_once("ensureLoggedIn.php");
             } else {
                 echo "<p>Failed to enter store: $storeEntered</p>";
             }
-            $query = $dbm->sqlQuery("SELECT id FROM stores WHERE names='$storeEntered'");
-            $storeId = $query[0]["id"];
-        } else {
-            $storeId = $_REQUEST["storeNameDropdown"];
         }
+
+        // Get store ID
+        $query = $dbm->sqlQuery("SELECT id FROM stores WHERE names='$storeEntered'");
+        $storeId = $query[0]["id"];
 
         // Process the form data
         $fp = new TransactionFormProcessor($_REQUEST, $newTransactionId, $storeId);

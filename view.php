@@ -53,6 +53,7 @@
         <ul>
             <li><a href="index.php" rel="external">Enter</a></li>
             <li><a href="view.php" class="ui-btn-active ui-state-persist">View</a></li>
+            <li><a href="dashboard.php" rel="external">Dashboard</a></li>
         </ul>
     </div>
     <?php

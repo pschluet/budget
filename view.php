@@ -35,7 +35,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"deleteTransactionRow.php",
+                url:"ajaxRequests.php",
                 data:{deleteId: delId},
                 success:function(data) {
                     if (data == "success") {

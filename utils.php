@@ -45,7 +45,9 @@ class SqlDataManager {
 		// value: value to check for in that column
 		// Returns true or false
 
-		$sql = "SELECT $columnName FROM $tableName WHERE $columnName = '$value'";
+		$valueEscaped = $this->secureFormInputText($value);
+
+		$sql = "SELECT $columnName FROM $tableName WHERE $columnName = '$valueEscaped'";
 		$match = $this->sqlQuery($sql);
 
 		return !empty($match);
@@ -104,13 +106,15 @@ class DataPresenter {
 
 	public static function printArrayAsFormOptions($inArr) {
 		foreach ($inArr as $opt) {
-			printf('<option value="%s">%s</option>', $opt["id"], $opt["names"]);
+			$text = str_replace("\\","",$opt["names"]);
+			printf('<option value="%s">%s</option>', $opt["id"], $text);
 		}
 	}
 
 	public static function printArrayAsListItems($inArr) {
 		foreach ($inArr as $opt) {
-			printf('<li value="%s" class="storeItem"><a href="#">%s</a></li>', $opt["id"], $opt["names"]);
+			$text = str_replace("\\","",$opt["names"]);
+			printf('<li value="%s" class="storeItem"><a href="#">%s</a></li>', $opt["id"], $text);
 		}
 	}
 
@@ -133,7 +137,8 @@ class DataPresenter {
 		    printf("<tr id=%s>", $rowIds[$ii]);
 		    $ii++;
 		    foreach($row as $key2=>$row2){
-		        echo "<td>" . $row2 . "</td>";
+		    	$text = str_replace("\\","",$row2);
+		        echo "<td>" . $text . "</td>";
 		    }
 		    if ($deleteCol) {
 		    	echo "<td><a href='#' class='ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-mini deleteX'></a></td>";

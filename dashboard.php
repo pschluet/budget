@@ -38,7 +38,7 @@
                 url:"ajaxRequests.php",
                 data:{
                     chartType: 'categoryBar',
-                    month: currentMonth
+                    month: currentMonth + 1
                 },
                 success:function(dataString) {
                     // Parse data

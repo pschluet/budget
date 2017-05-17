@@ -19,16 +19,18 @@ if(isset($_POST["deleteId"])) {
 
 // Get data for the budget category plot
 if (isset($_POST["chartType"]) && $_POST["chartType"] == "categoryBar") {
+	// TODO: Deal with deposits being positive and not deposits being negative
 	$dbm = new SqlDataManager();
+	$month = $_POST["month"];
 	$sql = "SELECT
                 c.names as category,
                 SUM(t.amount) as amount
             FROM transactions AS t
             INNER JOIN 
                 categories AS c ON t.categoryId=c.id
+            WHERE MONTH(t.date) in ($month)
             GROUP BY category
             ORDER BY category";
-
 	$res = $dbm->sqlQuery($sql);
 
 	echo json_encode($res);

@@ -117,7 +117,7 @@
         </ul>
     </div>
     <h1>Spending by Category</h1>
-    <canvas id="budgetChart" width="50" height="20"></canvas>
+    <canvas id="budgetChart" width="50" height="50"></canvas>
     <script>
 
     </script>

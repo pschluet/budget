@@ -76,7 +76,7 @@
                         data: {
                             labels: categories,
                             datasets: [{
-                                label: dataLabel,
+                                label: 'Amount',
                                 data: amounts,
                                 backgroundColor: bkgndClrs,
                                 borderColor: borderClrs,

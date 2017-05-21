@@ -19,7 +19,6 @@ if(isset($_POST["deleteId"])) {
 
 // Get data for the budget category plot
 if (isset($_POST["chartType"]) && $_POST["chartType"] == "categoryBar") {
-	// TODO: Deal with deposits being positive and not deposits being negative
 	$dbm = new SqlDataManager();
 	$month = $_POST["month"];
 	$sql = "SELECT

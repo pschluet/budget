@@ -185,10 +185,9 @@ class TransactionFormProcessor {
 				"transactionId" => (string)$this->transId,
 				"date" => $this->date,
 				"storeId" => $this->storeName,
-				"isDeposit" => $this->isDeposit,
 				"categoryId" => $this->categories[$ii],
 				"description" => $this->descriptions[$ii],
-				"amount" => $this->amts[$ii]
+				"amount" => ($this->isDeposit ? $this->amts[$ii] : -$this->amts[$ii])
 			);
 		}
 

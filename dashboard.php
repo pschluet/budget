@@ -44,7 +44,7 @@
                         return val.category;
                     });
                     var amounts = $.map(data, function(val, ii) {
-                        return +val.amount;
+                        return -(+val.amount);
                     });
 
                     // Make different bar colors

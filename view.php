@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 
     <!-- Include the jQuery library -->
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
     <!-- Include the jQuery Mobile library -->
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -35,7 +35,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"deleteTransactionRow.php",
+                url:"ajaxRequests.php",
                 data:{deleteId: delId},
                 success:function(data) {
                     if (data == "success") {

@@ -14,19 +14,16 @@
 
     <!-- Include jQuery Mobile stylesheets -->
     <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<!--     <link rel="stylesheet" href="lib/jquery/jquery.mobile-1.4.5.min.css"> -->
+
     <!-- Include the jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> <!-- 3.2.1 -->
-<!--     <script src="lib/jquery-3.2.1.min.js"></script> -->
 
     <!-- Include the jQuery Mobile library -->
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> 
-<!--     <script src="lib/jquery/jquery.mobile-1.4.5.min.js"></script> -->    
     <meta charset="UTF-8">
 
     <!-- Include Chart.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-<!--     <script src="lib/Chart.min.js"></script> -->
     <script>
         $(document).ready(function() {
             // Get month

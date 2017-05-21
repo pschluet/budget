@@ -24,82 +24,15 @@
 
     <!-- Include Chart.js library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script src="dashboard.js"></script>
     <script>
         $(document).ready(function() {
             // Get month
             var currentDate = new Date();
             var currentMonth = currentDate.getMonth();
 
-            $.ajax({
-                type:"POST",
-                url:"ajaxRequests.php",
-                data:{
-                    chartType: 'categoryBar',
-                    month: currentMonth + 1
-                },
-                success:function(dataString) {
-                    // Parse data
-                    var data = JSON.parse(dataString);
-                    var categories = $.map(data, function(val, ii) {
-                        return val.category;
-                    });
-                    var amounts = $.map(data, function(val, ii) {
-                        return -(+val.amount);
-                    });
-
-                    // Make different bar colors
-                    colorSet = [
-                        '55, 99, 132',
-                        '54, 162, 235',
-                        '255, 206, 86',
-                        '75, 192, 192',
-                        '153, 102, 255',
-                        '255, 159, 64'
-                    ];
-                    var bkgndClrs = Array();
-                    var borderClrs = Array();
-                    for (var ii = 0; ii < data.length; ii++) {
-                        bkgndClrs[ii] = 'rgba(' + colorSet[ii % colorSet.length] + ', 0.2)';
-                        borderClrs[ii] = 'rgba(' + colorSet[ii % colorSet.length] + ', 1)';
-                    }
-
-
-                    // Make chart
-                    var monthString = currentDate.toLocaleString('en-us', { month: "long" });
-                    var dataLabel = 'Total Spent in ' + monthString;
-                    var ctx = $("#budgetChart");
-                    var myChart = new Chart(ctx, {
-                        type: 'horizontalBar',
-                        data: {
-                            labels: categories,
-                            datasets: [{
-                                label: 'Amount',
-                                data: amounts,
-                                backgroundColor: bkgndClrs,
-                                borderColor: borderClrs,
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            legend: {
-                                display: false
-                             },
-                            title: {
-                                display: true,
-                                text: dataLabel,
-                                fontSize: 18
-                            },
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero:true
-                                    }
-                                }]
-                            }
-                        }
-                    });                    
-                }
-            })
+            createSpendingByCategoryBarChart(currentMonth + 1);
         });
     </script>
     <title>Dashboard</title>

@@ -1,27 +1,13 @@
-function createSpendingByCategoryBarChart(monthNumber) {
+function createSpendingByCategoryBarChart(monthNumber, yearNumber) {
 	// monthNumber: 1-based month number to plot (January is month 1)
-
-	var MONTH_NAMES = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December"
-	];
 
 	$.ajax({
 	    type:"POST",
 	    url:"ajaxRequests.php",
 	    data:{
 	        chartType: 'categoryBar',
-	        month: monthNumber
+	        month: monthNumber,
+	        year: yearNumber
 	    },
 	    success:function(dataString) {
 	        // Parse data
@@ -50,8 +36,6 @@ function createSpendingByCategoryBarChart(monthNumber) {
 	        }
 
 	        // Make chart
-	        var monthString = MONTH_NAMES[monthNumber - 1];
-	        var dataLabel = 'Total Spent in ' + monthString;
 	        var ctx = $("#budgetChart");
 	        var myChart = new Chart(ctx, {
 	            type: 'horizontalBar',
@@ -69,11 +53,6 @@ function createSpendingByCategoryBarChart(monthNumber) {
 	                legend: {
 	                    display: false
 	                 },
-	                title: {
-	                    display: true,
-	                    text: dataLabel,
-	                    fontSize: 18
-	                },
 	                scales: {
 	                    yAxes: [{
 	                        ticks: {

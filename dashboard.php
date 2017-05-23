@@ -30,10 +30,23 @@
         $(document).ready(function() {
             // Get month
             var currentDate = new Date();
-            var currentMonth = currentDate.getMonth();
+            var currentMonth = currentDate.getMonth() + 1;
+            var currentYear = currentDate.getFullYear();
 
-            createSpendingByCategoryBarChart(currentMonth + 1);
+            $('#yearSelect').val(currentYear);
+            $('#monthSelect').val(currentMonth);
+
+            createSpendingByCategoryBarChart(currentMonth, currentYear);
         });
+
+        function updateCategoryBar() {
+            var month = $("#monthSelect").val();
+            var year = $("#yearSelect").val();
+
+            $('#budgetChart').replaceWith('<canvas id="budgetChart" width="50" height="50"></canvas>');
+
+            createSpendingByCategoryBarChart(month, year);
+        }
     </script>
     <title>Dashboard</title>
 </head>
@@ -46,11 +59,51 @@
             <li><a href="dashboard.php" class="ui-btn-active ui-state-persist">Dashboard</a></li>
         </ul>
     </div>
-    <h1>Spending by Category</h1>
-    <canvas id="budgetChart" width="50" height="50"></canvas>
-    <script>
+    <h1>Totals by Category</h1>
 
-    </script>
+    <!-- Month/Year Pickers -->
+    <div data-role="navbar">
+        <ul>
+            <li>
+                <select onchange="updateCategoryBar()" id="monthSelect">
+                    <?php
+                        $currentMonth = date('n');
+                        for ($ii = 1; $ii < 13; $ii++) {
+                            $dateObj   = DateTime::createFromFormat('!m', $ii);
+                            $monthName = $dateObj->format('F');
+                            if ($ii == $currentMonth) {
+                                $selected = "selected";
+                            } else {
+                                $selected = "";
+                            }
+                            echo "<option value='$ii' $selected>$monthName</option>";
+                        }
+                    ?>
+                </select>
+            </li>
+            <li>
+                <select onchange="updateCategoryBar()" id="yearSelect">
+                    <?php
+                        $currentYear = date('Y');
+                        for ($ii = 0; $ii < 10; $ii++) {
+                            $year = date("Y") - $ii;
+
+                            if ($year == $currentYear) {
+                                $selected = "selected";
+                            } else {
+                                $selected = "";
+                            }
+                            echo "<option value='$year' $selected>$year</option>";
+                        }
+                    ?>
+                </select>
+            </li>
+        </ul>
+    </div>
+<!--     <form>
+        <input type="month" value="<?php echo date('F Y');?>">
+    </form> -->
+    <canvas id="budgetChart" width="50" height="50"></canvas>
 </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 class SqlDataManager {
 	private $dBserverName = "localhost";
 	private $dBuserName = "paulschl_money";
-	private $dBpwd = "***REMOVED***";
+	private $dBpwd = "examplePassword";
 	private $dBname = "paulschl_money";
 	private $dBconn;
 
